@@ -1,15 +1,14 @@
 # Simple PHP Git deploy script
 _Automatically deploy the code using PHP and Git._
 
+Because I prefer to setup deploy one time and let it work, I dom't need seperate config file.
+Also, for base deploy script, I don't need most of features from original repository so I cleaned it up and left only what I need. For original version, check `deploy-advanced.php` file.
+
 ## Requirements
 
-* `git` and `rsync` are required on the server that's running the script
-  (_server machine_).
-  - Optionally, `tar` is required for backup functionality (`BACKUP_DIR` option).
-  - Optionally, `composer` is required for composer functionality (`USE_COMPOSER`
-  option).
+* For base use you only need `git` to be installed.
 * The system user running PHP (e.g. `www-data`) needs to have the necessary
-  access permissions for the `TMP_DIR` and `TARGET_DIR` locations on
+  access permissions for the `TARGET_DIR` locations on
   the _server machine_.
 * If the Git repository you wish to deploy is private, the system user running PHP
   also needs to have the right SSH keys to access the remote repository.
@@ -17,10 +16,7 @@ _Automatically deploy the code using PHP and Git._
 ## Usage
 
  * Configure the script and put it somewhere that's accessible from the
-   Internet. The preferred way to configure it is to use `deploy-config.php` file.
-   Rename `deploy-config.example.php` to `deploy-config.php` and edit the
-   configuration options there. That way, you won't have to edit the configuration
-   again if you download the new version of `deploy.php`.
+   Internet. Update configuration in the beggiging of the file.
  * Configure your git repository to call this script when the code is updated.
    The instructions for GitHub and Bitbucket are below.
 
@@ -64,19 +60,3 @@ going to trigger the `deploy.php` script which is going to pull the changes and
 update the code on the _server machine_.
 
 For more info, read the source of `deploy.php`.
-
-## Tips'n'Tricks
-
- * Because `rsync` is used for deployment, the `TARGET_DIR` doesn't have to be
-   on the same server that the script is running e.g. `define('TARGET_DIR',
-   'username@example.com:/full/path/to/target_dir/');` is going to work as long
-   as the user has the right SSH keys and access permissions.
- * You can have multiple scripts with different configurations. Simply rename
-   the `deploy.php` to something else, for example `deploy_master.php` and
-   `deploy_develop.php` and configure them separately. In that case, the
-   configuration files need to be named `deploy_master-config.php` and
-   `deploy_develop-config.php` respectively.
-
----
-
-If you find this script useful, consider donating BTC to `1fLnPZkMYw1TFNEsJZCciwDAmUhDw2wit`.
